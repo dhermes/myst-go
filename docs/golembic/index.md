@@ -24,8 +24,9 @@ migrations.
 :file: apply.go
 :line-number: 11
 :for: ApplyConfig
-:type opts: ...ApplyOption
-:location opts: github.com/dhermes/golembic
+:param-name 0: opts
+:param-type 0: ...ApplyOption
+:param-location 0: github.com/dhermes/golembic
 :return-type 0: *ApplyConfig
 :return-location 0: github.com/dhermes/golembic
 :return-type 1: error
@@ -36,7 +37,8 @@ NewApplyConfig creates a new `ApplyConfig` and applies options.
 ```{go:func} OptApplyVerifyHistory
 :file: apply.go
 :line-number: 24
-:type verify: bool
+:param-name 0: verify
+:param-type 0: bool
 :return-type 0: ApplyOption
 :return-location 0: github.com/dhermes/golembic
 
@@ -46,7 +48,8 @@ OptApplyVerifyHistory sets `VerifyHistory` on an `ApplyConfig`.
 ```{go:func} OptApplyRevision
 :file: apply.go
 :line-number: 32
-:type revision: string
+:param-name 0: revision
+:param-type 0: string
 :return-type 0: ApplyOption
 :return-location 0: github.com/dhermes/golembic
 
@@ -89,10 +92,12 @@ alchemists).
 ```{go:func} ToRoundDuration
 :file: duration.go
 :line-number: 10
-:type d: time.Duration
-:location d: time
-:type base: time.Duration
-:location base: time
+:param-name 0: d
+:param-type 0: time.Duration
+:param-location 0: time
+:param-name 1: base
+:param-type 1: time.Duration
+:param-location 1: time
 :return-type 0: int64
 :return-type 1: error
 
