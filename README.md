@@ -42,6 +42,7 @@
   - [ ] `interface`
   - [ ] `chan`
   - [ ] Alias
+  - [ ] Variadic Input
 - Values
   - [ ] `const`
   - [ ] `var`
