@@ -22,16 +22,16 @@ migrations.
 :struct: ApplyConfig
 :type opts: ...ApplyOption
 :location opts: github.com/dhermes/golembic
-:return 0: *ApplyConfig
+:returntype 0: *ApplyConfig
 :returnloc 0: github.com/dhermes/golembic
-:return 1: error
+:returntype 1: error
 
 NewApplyConfig creates a new `ApplyConfig` and applies options.
 ```
 
 ```{go:func} OptApplyVerifyHistory
 :type verify: bool
-:return 0: ApplyOption
+:returntype 0: ApplyOption
 :returnloc 0: github.com/dhermes/golembic
 
 OptApplyVerifyHistory sets `VerifyHistory` on an `ApplyConfig`.
@@ -39,7 +39,7 @@ OptApplyVerifyHistory sets `VerifyHistory` on an `ApplyConfig`.
 
 ```{go:func} OptApplyRevision
 :type revision: string
-:return 0: ApplyOption
+:returntype 0: ApplyOption
 :returnloc 0: github.com/dhermes/golembic
 
 OptApplyRevision sets `Revision` on an `ApplyConfig`.
@@ -76,7 +76,17 @@ alchemists).
 
 <!-- Exported members from `duration.go` -->
 
-Placeholder
+```{go:func} ToRoundDuration
+:type d: time.Duration
+:location d: time
+:type base: time.Duration
+:location base: time
+:returntype 0: int64
+:returntype 1: error
+
+ToRoundDuration converts a duration to an **exact** multiple of some base
+duration or errors if round off is required.
+```
 
 <!-- Exported members from `errors.go` -->
 

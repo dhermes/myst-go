@@ -43,6 +43,7 @@
   - [ ] `chan`
   - [ ] Alias
   - [ ] Variadic Input
+  - [ ] Named Returns
 - Values
   - [ ] `const`
   - [ ] `var`
