@@ -13,6 +13,40 @@
       wheels so that Sphinx can autogenerate markdown without a full Go
       toolchain included
 
+## Elements in Go Domain
+
+- Primitive Types
+  - [ ] `bool`
+  - [ ] `int`
+  - [ ] `int8`
+  - [ ] `int16`
+  - [ ] `int32`
+  - [ ] `int64`
+  - [ ] `uint`
+  - [ ] `uint8`
+  - [ ] `uint16`
+  - [ ] `uint32`
+  - [ ] `uint64`
+  - [ ] `uintptr`
+  - [ ] `float32`
+  - [ ] `float64`
+  - [ ] `complex64`
+  - [ ] `complex128`
+  - [ ] `bytes`
+  - [ ] `string`
+- Container Types
+  - [ ] `map`
+  - [ ] `slice`
+  - [ ] `struct`
+  - [ ] `interface`
+  - [ ] `chan`
+- Values
+  - [ ] `const`
+  - [ ] `var`
+- [ ] Function
+- [ ] Method
+- [ ] Package
+
 ## Prior Art
 
 - [godocjson][1]: AST parser to extract godoc from source files
