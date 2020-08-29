@@ -3,6 +3,8 @@
 <!-- Exported members from `apply.go` -->
 
 ````{go:struct} ApplyConfig
+:file: apply.go
+:line-number: 5
 
 ApplyConfig provides configurable fields for "up" commands that will apply
 migrations.
@@ -19,6 +21,8 @@ migrations.
 <!-- --- -->
 
 ```{go:ctor} NewApplyConfig
+:file: apply.go
+:line-number: 11
 :for: ApplyConfig
 :type opts: ...ApplyOption
 :location opts: github.com/dhermes/golembic
@@ -30,6 +34,8 @@ NewApplyConfig creates a new `ApplyConfig` and applies options.
 ```
 
 ```{go:func} OptApplyVerifyHistory
+:file: apply.go
+:line-number: 24
 :type verify: bool
 :return-type 0: ApplyOption
 :return-location 0: github.com/dhermes/golembic
@@ -38,6 +44,8 @@ OptApplyVerifyHistory sets `VerifyHistory` on an `ApplyConfig`.
 ```
 
 ```{go:func} OptApplyRevision
+:file: apply.go
+:line-number: 32
 :type revision: string
 :return-type 0: ApplyOption
 :return-location 0: github.com/dhermes/golembic
@@ -48,6 +56,8 @@ OptApplyRevision sets `Revision` on an `ApplyConfig`.
 <!-- From `doc.go` -->
 
 ```{go:package} github.com/dhermes/golembic
+:file: doc.go
+:line-number: 1
 
 Package golembic is intended to provide tooling for managing SQL migrations in Go.
 
@@ -77,6 +87,8 @@ alchemists).
 <!-- Exported members from `duration.go` -->
 
 ```{go:func} ToRoundDuration
+:file: duration.go
+:line-number: 10
 :type d: time.Duration
 :location d: time
 :type base: time.Duration
