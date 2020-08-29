@@ -15,8 +15,9 @@
 
 ## Elements in Go Domain
 
-- Primitive Types
+- Basic Types
   - [ ] `bool`
+  - [ ] `string`
   - [ ] `int`
   - [ ] `int8`
   - [ ] `int16`
@@ -28,24 +29,29 @@
   - [ ] `uint32`
   - [ ] `uint64`
   - [ ] `uintptr`
+  - [ ] `byte`
+  - [ ] `rune`
   - [ ] `float32`
   - [ ] `float64`
   - [ ] `complex64`
   - [ ] `complex128`
-  - [ ] `bytes`
-  - [ ] `string`
-- Container Types
+- Non-Basic Types
   - [ ] `map`
   - [ ] `slice`
   - [ ] `struct`
   - [ ] `interface`
   - [ ] `chan`
+  - [ ] Alias
 - Values
   - [ ] `const`
   - [ ] `var`
 - [ ] Function
 - [ ] Method
 - [ ] Package
+
+## References
+
+- [go/types][4] package, [example][3] and [tour][5]
 
 ## Prior Art
 
@@ -55,3 +61,6 @@
 
 [1]: https://github.com/readthedocs/godocjson
 [2]: https://bitbucket.org/ymotongpoo/sphinxcontrib-golangdomain
+[3]: https://github.com/golang/example/tree/master/gotypes#types
+[4]: https://golang.org/pkg/go/types/
+[5]: https://tour.golang.org/basics/11

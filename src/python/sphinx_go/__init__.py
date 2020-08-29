@@ -2,10 +2,48 @@
 
 
 import sphinx.domains
+import sphinx.locale
+import sphinx.roles
+
+
+class GoCallable:
+    # TODO
+    pass
+
+
+class GoPackage:
+    # TODO
+    pass
+
+
+class GoXRefRole(sphinx.roles.XRefRole):
+    # TODO
+    pass
 
 
 class GoDomain(sphinx.domains.Domain):
-    pass
+    """Go language domain."""
+
+    name = "go"
+    label = "Go"
+
+    object_types = {
+        "function": sphinx.domains.ObjType(
+            sphinx.locale._("function"), "func"
+        ),
+        "method": sphinx.domains.ObjType(sphinx.locale._("method"), "meth"),
+        "package": sphinx.domains.ObjType(sphinx.locale._("package"), "pkg"),
+    }
+    directives = {
+        "function": GoCallable,
+        "method": GoCallable,
+        "package": GoPackage,
+    }
+    roles = {
+        "func": GoXRefRole(fix_parens=True),
+        "meth": GoXRefRole(fix_parens=True),
+        "pkg": GoXRefRole(),
+    }
 
 
 def setup(app):
