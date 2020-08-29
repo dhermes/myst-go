@@ -45,9 +45,13 @@
 - Values
   - [ ] `const`
   - [ ] `var`
+- [ ] Imports
 - [ ] Function
 - [ ] Method
 - [ ] Package
+- [ ] Cross-references
+- [ ] `objects.inv` support (`sphinx.ext.intersphinx`)
+- [ ] Links to source on GitHub / etc.
 
 ## References
 
