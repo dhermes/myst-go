@@ -1139,3 +1139,19 @@ See:
 :import sql: database/sql
 :import fmt: fmt
 ```
+
+```{go:func} CreateMigrationsTable
+:file: table.go
+:line-number: 35
+:param-name 0: ctx
+:param-type 0: context.Context
+:param-name 1: manager
+:param-type 1: *Manager
+:return-name 0: err
+:return-type 0: error
+
+CreateMigrationsTable invokes SQL statements required to create the metadata
+table used to track migrations. If the table already exists (as detected by
+`provider.TableExistsSQL()`), this function will not attempt to create a
+table or any constraints.
+```
