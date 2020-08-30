@@ -24,7 +24,7 @@ migrations.
 
 <!-- --- -->
 
-```{go:ctor} NewApplyConfig
+```{go:constructor} NewApplyConfig
 :file: apply.go
 :line-number: 11
 :for: ApplyConfig
@@ -362,7 +362,7 @@ DefaultMetadataTable is the default name for the table used to store
 metadata about migrations.
 ```
 
-```{go:ctor} NewManager
+```{go:constructor} NewManager
 :file: manager.go
 :line-number: 17
 :for: Manager
@@ -681,6 +681,114 @@ OptManagerSequence sets the migrations sequence on a manager.
 :import sql: database/sql
 :import fmt: fmt
 :import time: time
+```
+
+````{go:struct} Migration
+:file: migration.go
+:line-number: 12
+
+Migration represents an individual migration to be applied; typically as
+a set of SQL statements.
+
+```{go:field} Previous
+:type: string
+
+Previous is the revision identifier for the migration immediately
+preceding this one. If absent, this indicates that this migration is
+the "base" or "root" migration.
+```
+
+```{go:field} Revision
+:type: string
+
+Revision is an opaque name that uniquely identifies a migration. It
+is required for a migration to be valid.
+```
+
+```{go:field} Description
+:type: string
+
+Description is a long form description of why the migration is being
+performed. It is intended to be used in "describe" scenarios where
+a long form "history" of changes is presented.
+```
+
+```{go:field} Up
+:type: UpMigration
+
+Up is the function to be executed when a migration is being applied. Either
+this field or `UpConn` are required (not both) and this field should be
+the default choice in most cases. This function will be run in a transaction
+that also writes a row to the migrations metadata table to signify that
+this migration was applied.
+```
+
+```{go:field} UpConn
+:type: UpMigrationConn
+
+UpConn is the non-transactional form of `Up`. This should be used in
+rare situations where a migration cannot run inside a transaction, e.g.
+a `CREATE UNIQUE INDEX CONCURRENTLY` statement.
+```
+
+```{go:field} CreatedAt
+:type: time.Time
+
+CreatedAt is intended to be used for migrations retrieved via a SQL
+query to the migrations metadata table.
+```
+````
+
+```{go:constructor} NewMigration
+:file: migration.go
+:line-number: 40
+:for: Migration
+:param-name 0: opts
+:param-type 0: ...MigrationOption
+:return-type 0: *Migration
+:return-type 1: error
+
+NewMigration creates a new migration from a variadic slice of options.
+```
+
+```{go:method} Like
+:file: migration.go
+:line-number: 53
+:receiver: Migration
+:param-name 0: other
+:param-type 0: Migration
+:return-type 0: bool
+
+Like is "almost" an equality check, it compares the `Previous` and `Revision`.
+```
+
+```{go:method} Compact
+:file: migration.go
+:line-number: 58
+:receiver: Migration
+:return-type 0: string
+
+Compact gives a "limited" representation of the migration
+```
+
+```{go:method} InvokeUp
+:file: migration.go
+:line-number: 72
+:receiver: Migration
+:param-name 0: ctx
+:param-type 0: context.Context
+:param-name 1: pool
+:param-type 1: *sql.DB
+:param-name 2: tx
+:param-type 2: *sql.Tx
+:return-type 0: error
+
+InvokeUp dispatches to `Up` or `UpConn`, depending on which is set. If both
+or neither is set, that is considered an error. If `UpConn` needs to be invoked,
+this lazily creates a new connection from a pool. It's crucial that the pool
+sets the relevant timeouts when creating a new connection to make sure
+migrations don't cause disruptions in application performance due to
+accidentally holding locks for an extended period.
 ```
 
 <!-- Exported members from `migration_options.go` -->

@@ -57,6 +57,21 @@
 - [ ] `objects.inv` support (`sphinx.ext.intersphinx`)
 - [ ] Links to source on GitHub / etc.
 
+## Elements
+
+- `go:alias`
+- `go:const`
+- `go:constructor`
+- `go:field`
+- `go:file`
+- `go:func`
+- `go:interface`
+- `go:interface`-method
+- `go:method`
+- `go:package`
+- `go:struct`
+- `go:var`
+
 ## References
 
 - [go/types][4] package, [example][3] and [tour][5]
