@@ -634,6 +634,46 @@ exists.
 :import sql: database/sql
 ```
 
+```{go:func} OptManagerMetadataTable
+:file: manager_options.go
+:line-number: 8
+:param-name 0: table
+:param-type 0: string
+:return-type 0: ManagerOption
+
+OptManagerMetadataTable sets the metadata table name on a manager.
+```
+
+```{go:func} OptManagerConnectionPool
+:file: manager_options.go
+:line-number: 16
+:param-name 0: pool
+:param-type 0: *sql.DB
+:return-type 0: ManagerOption
+
+OptManagerConnectionPool sets the connection pool on a manager.
+```
+
+```{go:func} OptManagerProvider
+:file: manager_options.go
+:line-number: 24
+:param-name 0: provider
+:param-type 0: EngineProvider
+:return-type 0: ManagerOption
+
+OptManagerProvider sets the provider on a manager.
+```
+
+```{go:func} OptManagerSequence
+:file: manager_options.go
+:line-number: 32
+:param-name 0: migrations
+:param-type 0: *Migrations
+:return-type 0: ManagerOption
+
+OptManagerSequence sets the migrations sequence on a manager.
+```
+
 <!-- Exported members from `migration.go` -->
 
 ```{go:file} migration.go
