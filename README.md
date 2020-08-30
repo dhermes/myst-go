@@ -5,13 +5,13 @@
 ## Goals
 
 - [ ] Write custom Sphinx domain for Go
-- [ ] Manually (i.e. by hand) translate godoc for a package into Markdown and
-      render with MyST-Parser (and the custom domain)
+- [x] Manually (i.e. by hand) translate godoc for a package into Markdown
+- [ ] Render manually translated godoc with MyST-Parser (and the custom domain)
 - [ ] Write Go package to auto-generate markdown files in the same fashion
       the manual translation proceeded
 - [ ] Use `cgo` to build `libmystgo` shared library and include it in Python
       wheels so that Sphinx can autogenerate markdown without a full Go
-      toolchain included
+      toolchain included (suggest: use `MYSTGO_` prefix for symbols)
 
 ## Elements in Go Domain
 
