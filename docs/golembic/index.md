@@ -22,8 +22,6 @@ migrations.
 ```
 ````
 
-<!-- --- -->
-
 ```{go:constructor} NewApplyConfig
 :file: apply.go
 :line-number: 11
@@ -908,6 +906,176 @@ OptAlwaysError returns an option that always returns an error.
 ```{go:file} migrations.go
 :import fmt: fmt
 :import sync: sync
+```
+
+```{go:struct} Migrations
+:file: migrations.go
+:line-number: 9
+
+Migrations represents a sequence of migrations to be applied.
+```
+
+```{go:constructor} NewSequence
+:file: migrations.go
+:line-number: 16
+:for: Migrations
+:param-name 0: root
+:param-type 0: Migration
+:return-type 0: *Migrations
+:return-type 1: error
+
+NewSequence creates a new sequence of migrations rooted in a single
+base / root migration.
+```
+
+```{go:method} Register
+:file: migrations.go
+:line-number: 41
+:receiver: *Migrations
+:param-name 0: migration
+:param-type 0: Migration
+:return-type 0: error
+
+Register adds a new migration to an existing sequence of migrations, if
+possible. The new migration must have a previous migration and have a valid
+revision that is not already registered.
+```
+
+```{go:method} RegisterMany
+:file: migrations.go
+:line-number: 70
+:receiver: *Migrations
+:param-name 0: ms
+:param-type 0: ...Migration
+:return-type 0: error
+
+RegisterMany attempts to register multiple migrations (in order) with an
+existing sequence.
+```
+
+```{go:method} RegisterManyOpt
+:file: migrations.go
+:line-number: 85
+:receiver: *Migrations
+:param-name 0: manyOpts
+:param-type 0: ...[]MigrationOption
+:return-type 0: error
+
+RegisterManyOpt attempts to register multiple migrations (in order) with an
+existing sequence. It differs from `RegisterMany()` in that the construction
+of `Migration` objects is handled directly here by taking a slice of
+option slices.
+```
+
+```{go:method} Root
+:file: migrations.go
+:line-number: 109
+:receiver: *Migrations
+:return-type 0: Migration
+
+Root does a linear scan of every migration in the sequence and returns
+the root migration. In the "general" case such a scan would be expensive, but
+the number of migrations should always be a small number.
+
+NOTE: This does not verify or enforce the invariant that there must be
+exactly one migration without a previous migration. This invariant is enforced
+by the exported methods such as `Register()` and `RegisterMany()` and the
+constructor `NewSequence()`.
+```
+
+```{go:method} All
+:file: migrations.go
+:line-number: 128
+:receiver: *Migrations
+:return-type 0: []Migration
+
+All produces the migrations in the sequence, in order.
+
+NOTE: This does not verify or enforce the invariant that there must be
+exactly one migration without a previous migration. This invariant is enforced
+by the exported methods such as `Register()` and `RegisterMany()` and the
+constructor `NewSequence()`.
+```
+
+```{go:method} Since
+:file: migrations.go
+:line-number: 158
+:receiver: *Migrations
+:param-name 0: revision
+:param-type 0: string
+:return-type 0: []Migration
+:return-type 1: error
+
+Since returns the migrations that occur **after** `revision`.
+
+This utilizes `All()` and returns all migrations after the one that
+matches `revision`. If none match, an error will be returned. If
+`revision` is the **last** migration, the migrations returned will be an
+empty slice.
+```
+
+```{go:method} Until
+:file: migrations.go
+:line-number: 186
+:receiver: *Migrations
+:param-name 0: revision
+:param-type 0: string
+:return-type 0: []Migration
+:return-type 1: error
+
+Until returns the migrations that occur **before** `revision`.
+
+This utilizes `All()` and returns all migrations up to and including the one
+that matches `revision`. If none match, an error will be returned.
+```
+
+```{go:method} Between
+:file: migrations.go
+:line-number: 210
+:receiver: *Migrations
+:param-name 0: since
+:param-type 0: string
+:param-name 1: until
+:param-type 1: string
+:return-type 0: []Migration
+:return-type 1: error
+
+Between returns the migrations that occur between two revisions.
+
+This can be seen as a combination of `Since()` and `Until()`.
+```
+
+```{go:method} Revisions
+:file: migrations.go
+:line-number: 249
+:receiver: *Migrations
+:return-type 0: []string
+
+Revisions produces the revisions in the sequence, in order.
+
+This utilizes `All()` and just extracts the revisions.
+```
+
+```{go:method} Describe
+:file: migrations.go
+:line-number: 263
+:receiver: *Migrations
+:param-name 0: log
+:param-type 0: PrintfReceiver
+
+Describe displays all of the registered migrations (with descriptions).
+```
+
+```{go:method} Get
+:file: migrations.go
+:line-number: 289
+:receiver: *Migrations
+:param-name 0: revision
+:param-type 0: string
+:return-type 0: *Migration
+
+Get retrieves a revision from the sequence, if present. If not, returns
+`nil`.
 ```
 
 <!-- Exported members from `quote.go` -->
