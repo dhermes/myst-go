@@ -99,3 +99,50 @@ be used to configure a `Manager`.
 :import pflag: github.com/spf13/pflag
 :import golembic: github.com/dhermes/golembic
 ```
+
+````{go:struct} RoundDuration
+:file: golembic/command/value.go
+:line-number: 21
+
+RoundDuration wraps a `time.Duration` as a value that can be used as flag
+with `cobra` / `pflag`, but one that must be convertible to a multiple of
+some base duration.
+
+```{go:field} Base
+:type: time.Duration
+```
+
+```{go:field} Value
+:type: *time.Duration
+```
+````
+
+```{go:method} String
+:file: golembic/command/value.go
+:line-number: 27
+:receiver: *RoundDuration
+:return-type 0: string
+
+String is the string representation of the stored value.
+```
+
+```{go:method} Set
+:file: golembic/command/value.go
+:line-number: 35
+:receiver: *RoundDuration
+:param-name 0: value
+:param-type 0: string
+:return-type 0: error
+
+Set sets the duration based on a string input.
+```
+
+```{go:method} Type
+:file: golembic/command/value.go
+:line-number: 52
+:receiver: *RoundDuration
+:return-type 0: string
+
+Type is a human readable "description" of the underlying type being
+represented.
+```
