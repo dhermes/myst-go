@@ -20,10 +20,9 @@ a migration sequence.
 :import golembic: github.com/dhermes/golembic
 ```
 
-```{go:alias} UpMigration
+```{go:alias-func} UpMigration
 :file: golembic/command/interfaces.go
 :line-number: 12
-:type: func
 :param-name 0: sqlDirectory
 :param-type 0: string
 :return-type 0: *golembic.Migrations

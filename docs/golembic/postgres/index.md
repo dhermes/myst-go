@@ -328,10 +328,9 @@ be negative.
 :import time: time
 ```
 
-```{go:alias} Option
+```{go:alias-func} Option
 :file: postgres/options.go
 :line-number: 9
-:type: func
 :param-type 0: *Config
 :return-type 0: error
 

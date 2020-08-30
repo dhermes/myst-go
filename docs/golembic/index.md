@@ -214,10 +214,9 @@ up function (e.g. if it is `nil`).
 :import sql: database/sql
 ```
 
-```{go:alias} UpMigration
+```{go:alias-func} UpMigration
 :file: interfaces.go
 :line-number: 18
-:type: func
 :param-type 0: context.Context
 :param-type 1: *sql.Tx
 :return-type 0: error
@@ -234,10 +233,9 @@ transaction. If a migration cannot run inside a transaction, e.g. a
 interface should be used.
 ```
 
-```{go:alias} UpMigrationConn
+```{go:alias-func} UpMigrationConn
 :file: interfaces.go
 :line-number: 23
-:type: func
 :param-type 0: context.Context
 :param-type 1: *sql.Conn
 :return-type 0: error
@@ -305,30 +303,27 @@ PrintfReceiver is a generic interface for logging and printing.
 ```
 ````
 
-```{go:alias} ManagerOption
+```{go:alias-func} ManagerOption
 :file: interfaces.go
 :line-number: 52
-:type: func
 :param-type 0: *Manager
 :return-type 0: error
 
 ManagerOption describes options used to create a new manager.
 ```
 
-```{go:alias} MigrationOption
+```{go:alias-func} MigrationOption
 :file: interfaces.go
 :line-number: 55
-:type: func
 :param-type 0: *Migration
 :return-type 0: error
 
 MigrationOption describes options used to create a new migration.
 ```
 
-```{go:alias} ApplyOption
+```{go:alias-func} ApplyOption
 :file: interfaces.go
 :line-number: 58
-:type: func
 :param-type 0: *ApplyConfig
 :return-type 0: error
 
