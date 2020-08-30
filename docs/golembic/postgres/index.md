@@ -303,6 +303,24 @@ Package postgres provides PostgreSQL helpers for golembic.
 :import errors: errors
 ```
 
+```{go:var} ErrNegativeTimeout
+:file: postgres/errors.go
+:line-number: 10
+:type: error
+
+ErrNegativeTimeout is the error returned when a timeout duration cannot
+be negative.
+```
+
+```{go:var} ErrNegativeCount
+:file: postgres/errors.go
+:line-number: 13
+:type: error
+
+ErrNegativeCount is the error returned when a configured count cannot
+be negative.
+```
+
 <!-- Exported members from `options.go` -->
 
 ```{go:file} postgres/options.go
