@@ -1084,6 +1084,45 @@ Get retrieves a revision from the sequence, if present. If not, returns
 :import strings: strings
 ```
 
+```{go:func} QuoteIdentifier
+:file: quote.go
+:line-number: 17
+:param-name 0: name
+:param-type 0: string
+:return-type 0: string
+
+QuoteIdentifier quotes an identifier, such as a table name, for usage
+in a query.
+
+This implementation is vendored in here to avoid the side effects of
+importing `github.com/lib/pq`.
+
+See:
+- https://github.com/lib/pq/blob/v1.8.0/conn.go#L1564-L1581
+- https://www.sqlite.org/lang_keywords.html
+- https://github.com/ronsavage/SQL/blob/a67e7eaefae89ed761fa4dcbc5431ec9a235a6c8/sql-99.bnf#L412
+```
+
+```{go:func} QuoteLiteral
+:file: quote.go
+:line-number: 36
+:param-name 0: literal
+:param-type 0: string
+:return-type 0: string
+
+QuoteLiteral quotes a literal, such as `2023-01-05 15:00:00Z`, for usage
+in a query.
+
+This implementation is vendored in here to avoid the side effects of
+importing `github.com/lib/pq`.
+
+See:
+- https://github.com/lib/pq/blob/v1.8.0/conn.go#L1583-L1614
+- https://www.sqlite.org/lang_keywords.html
+- https://github.com/ronsavage/SQL/blob/a67e7eaefae89ed761fa4dcbc5431ec9a235a6c8/sql-99.bnf#L758-L761
+- https://github.com/ronsavage/SQL/blob/a67e7eaefae89ed761fa4dcbc5431ec9a235a6c8/sql-99.bnf#L290
+```
+
 <!-- Exported members from `sql.go` -->
 
 ```{go:file} sql.go
