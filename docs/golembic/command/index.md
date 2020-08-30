@@ -48,6 +48,18 @@ as input.
 :import postgres: github.com/dhermes/golembic/postgres
 ```
 
+```{go:const} EnvVarPostgresPassword
+:file: golembic/command/postgres.go
+:line-number: 20
+:type: literal
+:literal: "PGPASSWORD"
+
+EnvVarPostgresPassword is the environment variable officially supported by
+`psql` for a password. Due to the sensitive nature of passwords, we
+don't support a `--password` flag for passing along a password in plain
+text.
+```
+
 <!-- Exported members from `provider.go` -->
 
 ```{go:file} golembic/command/provider.go
