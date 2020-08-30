@@ -328,6 +328,166 @@ be negative.
 :import time: time
 ```
 
+```{go:alias} Option
+:file: postgres/options.go
+:line-number: 9
+:type: func
+:param-type 0: *Config
+:return-type 0: error
+
+Option describes options used to create a new config for a SQL provider.
+```
+
+```{go:func} OptHost
+:file: postgres/options.go
+:line-number: 12
+:param-name 0: host
+:param-type 0: string
+:return-type 0: Option
+
+OptHost sets the `Host` on a `Config`.
+```
+
+```{go:func} OptPort
+:file: postgres/options.go
+:line-number: 20
+:param-name 0: port
+:param-type 0: string
+:return-type 0: Option
+
+OptPort sets the `Port` on a `Config`.
+```
+
+```{go:func} OptDatabase
+:file: postgres/options.go
+:line-number: 28
+:param-name 0: database
+:param-type 0: string
+:return-type 0: Option
+
+OptDatabase sets the `Database` on a `Config`.
+```
+
+```{go:func} OptSchema
+:file: postgres/options.go
+:line-number: 36
+:param-name 0: schema
+:param-type 0: string
+:return-type 0: Option
+
+OptSchema sets the `Schema` on a `Config`.
+```
+
+```{go:func} OptUsername
+:file: postgres/options.go
+:line-number: 44
+:param-name 0: username
+:param-type 0: string
+:return-type 0: Option
+
+OptUsername sets the `Username` on a `Config`.
+```
+
+```{go:func} OptPassword
+:file: postgres/options.go
+:line-number: 52
+:param-name 0: password
+:param-type 0: string
+:return-type 0: Option
+
+OptPassword sets the `Password` on a `Config`.
+```
+
+```{go:func} OptConnectTimeout
+:file: postgres/options.go
+:line-number: 60
+:param-name 0: d
+:param-type 0: time.Duration
+:return-type 0: Option
+
+OptConnectTimeout sets the `ConnectTimeout` on a `Config`.
+```
+
+```{go:func} OptSSLMode
+:file: postgres/options.go
+:line-number: 73
+:param-name 0: sslMode
+:param-type 0: string
+:return-type 0: Option
+
+OptSSLMode sets the `SSLMode` on a `Config`.
+```
+
+```{go:func} OptDriverName
+:file: postgres/options.go
+:line-number: 81
+:param-name 0: name
+:param-type 0: string
+:return-type 0: Option
+
+OptDriverName sets the `DriverName` on a `Config`.
+```
+
+```{go:func} OptLockTimeout
+:file: postgres/options.go
+:line-number: 89
+:param-name 0: d
+:param-type 0: time.Duration
+:return-type 0: Option
+
+OptLockTimeout sets the `LockTimeout` on a `Config`.
+```
+
+```{go:func} OptStatementTimeout
+:file: postgres/options.go
+:line-number: 102
+:param-name 0: d
+:param-type 0: time.Duration
+:return-type 0: Option
+
+OptStatementTimeout sets the `StatementTimeout` on a `Config`.
+```
+
+```{go:func} OptIdleConnections
+:file: postgres/options.go
+:line-number: 115
+:param-name 0: count
+:param-type 0: int
+:return-type 0: Option
+
+OptIdleConnections sets the `IdleConnections` on a `Config`.
+```
+
+```{go:func} OptMaxConnections
+:file: postgres/options.go
+:line-number: 128
+:param-name 0: count
+:param-type 0: int
+:return-type 0: Option
+
+OptMaxConnections sets the `MaxConnections` on a `Config`.
+```
+
+```{go:func} OptMaxLifetime
+:file: postgres/options.go
+:line-number: 141
+:param-name 0: d
+:param-type 0: time.Duration
+:return-type 0: Option
+
+OptMaxLifetime sets the `MaxLifetime` on a `Config`.
+```
+
+```{go:func} OptAlwaysError
+:file: postgres/options.go
+:line-number: 154
+:param-name 0: err
+:param-type 0: error
+:return-type 0: Option
+
+OptAlwaysError returns an option that always returns an error.
+```
+
 <!-- Exported members from `provider.go` -->
 
 ```{go:file} postgres/provider.go
