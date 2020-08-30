@@ -495,3 +495,71 @@ OptAlwaysError returns an option that always returns an error.
 :import fmt: fmt
 :import golembic: github.com/dhermes/golembic
 ```
+
+```{go:constructor} New
+:file: postgres/provider.go
+:line-number: 18
+:for: SQLProvider
+:param-name 0: opts
+:param-type 0: ...Option
+:return-type 0: *SQLProvider
+:return-type 1: error
+
+New creates a PostgreSQL-specific database engine provider from some
+options.
+```
+
+````{go:struct} SQLProvider
+:file: postgres/provider.go
+:line-number: 41
+
+SQLProvider is a PostgreSQL-specific database engine provider.
+
+```{go:field} Config
+:type: *Config
+```
+````
+
+```{go:method} QuoteIdentifier
+:file: postgres/provider.go
+:line-number: 47
+:receiver: *SQLProvider
+:param-name 0: name
+:param-type 0: string
+:return-type 0: string
+
+QuoteIdentifier quotes an identifier, such as a table name, for usage
+in a query.
+```
+
+```{go:method} QuoteLiteral
+:file: postgres/provider.go
+:line-number: 53
+:receiver: *SQLProvider
+:param-name 0: literal
+:param-type 0: string
+:return-type 0: string
+
+QuoteLiteral quotes a literal, such as `2023-01-05 15:00:00Z`, for usage
+in a query.
+```
+
+```{go:method} Open
+:file: postgres/provider.go
+:line-number: 58
+:receiver: *SQLProvider
+:return-type 0: *sql.DB
+:return-type 1: error
+
+Open creates a database connection pool to a PostgreSQL instance.
+```
+
+```{go:method} TableExistsSQL
+:file: postgres/provider.go
+:line-number: 79
+:receiver: *SQLProvider
+:return-type 0: string
+
+TableExistsSQL returns a SQL query that can be used to determine if a
+table exists.
+```
