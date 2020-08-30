@@ -799,6 +799,110 @@ accidentally holding locks for an extended period.
 :import ioutil: io/ioutil
 ```
 
+```{go:func} OptPrevious
+:file: migration_options.go
+:line-number: 10
+:param-name 0: previous
+:param-type 0: string
+:return-type 0: MigrationOption
+
+OptPrevious sets the previous on a migration.
+```
+
+```{go:func} OptRevision
+:file: migration_options.go
+:line-number: 18
+:param-name 0: revision
+:param-type 0: string
+:return-type 0: MigrationOption
+
+OptRevision sets the revision on a migration.
+```
+
+```{go:func} OptDescription
+:file: migration_options.go
+:line-number: 30
+:param-name 0: description
+:param-type 0: string
+:return-type 0: MigrationOption
+
+OptDescription sets the description on a migration.
+```
+
+```{go:func} OptUp
+:file: migration_options.go
+:line-number: 38
+:param-name 0: up
+:param-type 0: UpMigration
+:return-type 0: MigrationOption
+
+OptUp sets the `up` function on a migration.
+```
+
+```{go:func} OptUpFromSQL
+:file: migration_options.go
+:line-number: 51
+:param-name 0: statement
+:param-type 0: string
+:return-type 0: MigrationOption
+
+OptUpFromSQL returns an option that sets the `up` function to execute a
+SQL statement.
+```
+
+```{go:func} OptUpFromFile
+:file: migration_options.go
+:line-number: 65
+:param-name 0: filename
+:param-type 0: string
+:return-type 0: MigrationOption
+
+OptUpFromFile returns an option that sets the `up` function to execute a
+SQL statement that is stored in a file.
+```
+
+```{go:func} OptUpConn
+:file: migration_options.go
+:line-number: 75
+:param-name 0: up
+:param-type 0: UpMigrationConn
+:return-type 0: MigrationOption
+
+OptUpConn sets the non-transactional `up` function on a migration.
+```
+
+```{go:func} OptUpConnFromSQL
+:file: migration_options.go
+:line-number: 88
+:param-name 0: statement
+:param-type 0: string
+:return-type 0: MigrationOption
+
+OptUpConnFromSQL returns an option that sets the non-transctional `up`
+function to execute a SQL statement.
+```
+
+```{go:func} OptUpConnFromFile
+:file: migration_options.go
+:line-number: 102
+:param-name 0: filename
+:param-type 0: string
+:return-type 0: MigrationOption
+
+OptUpConnFromFile returns an option that sets the non-transctional `up`
+function to execute a SQL statement that is stored in a file.
+```
+
+```{go:func} OptAlwaysError
+:file: migration_options.go
+:line-number: 112
+:param-name 0: err
+:param-type 0: error
+:return-type 0: MigrationOption
+
+OptAlwaysError returns an option that always returns an error.
+```
+
 <!-- Exported members from `migrations.go` -->
 
 ```{go:file} migrations.go
