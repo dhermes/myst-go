@@ -2,20 +2,43 @@
 
 <!-- Exported members from `config.go` -->
 
-Placeholder
+```{go:file} postgres/config.go
+:import fmt: fmt
+:import url: net/url
+:import time: time
+:import golembic: github.com/dhermes/golembic
+```
 
 <!-- Exported members from `doc.go` -->
 
-Placeholder
+```{go:file} postgres/doc.go
+
+```
+
+```{go:package} github.com/dhermes/golembic/postgres
+:file: postgres/doc.go
+:line-number: 1
+
+Package postgres provides PostgreSQL helpers for golembic.
+```
 
 <!-- Exported members from `errors.go` -->
 
-Placeholder
+```{go:file} postgres/errors.go
+:import errors: errors
+```
 
 <!-- Exported members from `options.go` -->
 
-Placeholder
+```{go:file} postgres/options.go
+:import fmt: fmt
+:import time: time
+```
 
 <!-- Exported members from `provider.go` -->
 
-Placeholder
+```{go:file} postgres/provider.go
+:import sql: database/sql
+:import fmt: fmt
+:import golembic: github.com/dhermes/golembic
+```

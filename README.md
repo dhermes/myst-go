@@ -56,6 +56,8 @@
 - [ ] Cross-references
 - [ ] `objects.inv` support (`sphinx.ext.intersphinx`)
 - [ ] Links to source on GitHub / etc.
+- [ ] Noting explicit compile-time type assertions (this may be too challening
+      to do)
 
 ## Elements
 
