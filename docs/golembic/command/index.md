@@ -78,6 +78,19 @@ text.
 :import golembic: github.com/dhermes/golembic
 ```
 
+```{go:func} MakeRootCommand
+:file: golembic/command/root.go
+:line-number: 14
+:param-name 0: rm
+:param-type 0: RegisterMigrations
+:return-type 0: *cobra.Command
+:return-type 1: error
+
+MakeRootCommand creates a `cobra` command that is bound to a sequence of
+migrations. The flags for the root command and relevant subcommands will
+be used to configure a `Manager`.
+```
+
 <!-- Exported members from `value.go` -->
 
 ```{go:file} golembic/command/value.go
