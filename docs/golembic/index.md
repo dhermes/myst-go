@@ -255,7 +255,7 @@ should only be used in rare situations.
 
 EngineProvider describes the interface required for a database engine.
 
-```{go:method} QuoteIdentifier
+```{go:interface-method} QuoteIdentifier
 :param-name 0: name
 :param-type 0: string
 :return-type 0: string
@@ -264,7 +264,7 @@ QuoteIdentifier quotes an identifier, such as a table name, for usage
 in a query.
 ```
 
-```{go:method} QuoteLiteral
+```{go:interface-method} QuoteLiteral
 :param-name 0: literal
 :param-type 0: string
 :return-type 0: string
@@ -273,14 +273,14 @@ QuoteLiteral quotes a literal, such as `2023-01-05 15:00:00Z`, for usage
 in a query.
 ```
 
-```{go:method} Open
+```{go:interface-method} Open
 :return-type 0: *sql.DB
 :return-type 1: error
 
 Open creates a database connection for the engine provider.
 ```
 
-```{go:method} TableExistsSQL
+```{go:interface-method} TableExistsSQL
 :return-type 0: string
 
 TableExistsSQL returns a SQL query that can be used to determine if a
@@ -295,7 +295,7 @@ to filter results.
 
 PrintfReceiver is a generic interface for logging and printing.
 
-```{go:method} Printf
+```{go:interface-method} Printf
 :param-name 0: format
 :param-type 0: string
 :param-name 1: a
@@ -350,6 +350,282 @@ ApplyOption describes options used to create a apply configuration.
 :import sql: database/sql
 :import fmt: fmt
 :import time: time
+```
+
+```{go:const} DefaultMetadataTable
+:file: manager.go
+:line-number: 13
+:type: literal
+:literal: "golembic_migrations"
+
+DefaultMetadataTable is the default name for the table used to store
+metadata about migrations.
+```
+
+```{go:ctor} NewManager
+:file: manager.go
+:line-number: 17
+:for: Manager
+:param-name 0: opts
+:param-type 0: ...ManagerOption
+:return-type 0: *Manager
+:return-type 1: error
+
+NewManager creates a new manager for orchestrating migrations.
+```
+
+````{go:struct} Manager
+:file: manager.go
+:line-number: 35
+
+Manager orchestrates database operations done via `Up` / `UpConn` as well as
+supporting operations such as creating a table for migration metadata and
+writing rows into that metadata table during a migration.
+
+```{go:field} MetadataTable
+:type: string
+
+MetadataTable is the name of the table that stores migration metadata.
+The expected default value (`DefaultMetadataTable`) is
+"golembic_migrations".
+```
+
+```{go:field} ConnectionPool
+:type: *sql.DB
+
+ConnectionPool is a cache-able pool of connections to the database.
+```
+
+```{go:field} Provider
+:type: EngineProvider
+
+Provider delegates all actions to an abstract SQL database engine, with
+the expectation that the provider also encodes connection information.
+```
+
+```{go:field} Sequence
+:type: *Migrations
+
+Sequence is the collection of registered migrations to be applied,
+verified, described, etc. by this manager.
+```
+
+```{go:field} Log
+:type: PrintfReceiver
+
+Log is used for printing output
+```
+````
+
+```{go:method} NewConnectionPool
+:file: manager.go
+:line-number: 54
+:receiver: *Manager
+:param-name 0: ctx
+:param-type 0: context.Context
+:return-type 0: *sql.DB
+:return-type 1: error
+
+NewConnectionPool creates a new database connection pool and validates that
+it can ping the DB.
+```
+
+```{go:method} CloseConnectionPool
+:file: manager.go
+:line-number: 70
+:receiver: *Manager
+:return-type 0: error
+
+CloseConnectionPool closes the connection pool and removes it, if one is
+set / cached on the current manager.
+```
+
+```{go:method} EnsureConnectionPool
+:file: manager.go
+:line-number: 86
+:receiver: *Manager
+:param-name 0: ctx
+:param-type 0: context.Context
+:return-type 0: *sql.DB
+:return-type 1: error
+
+EnsureConnectionPool returns a cached database connection pool (if already
+set) or invokes `NewConnection()` to create a new one.
+```
+
+```{go:method} EnsureMigrationsTable
+:file: manager.go
+:line-number: 102
+:receiver: *Manager
+:param-name 0: ctx
+:param-type 0: context.Context
+:return-type 0: error
+
+EnsureMigrationsTable checks that the migrations metadata table exists
+and creates it if not.
+```
+
+```{go:method} InsertMigration
+:file: manager.go
+:line-number: 107
+:receiver: *Manager
+:param-name 0: ctx
+:param-type 0: context.Context
+:param-name 1: tx
+:param-type 1: *sql.Tx
+:param-name 2: migration
+:param-type 2: Migration
+:return-type 0: error
+
+InsertMigration inserts a migration into the migrations metadata table.
+```
+
+```{go:method} NewTx
+:file: manager.go
+:line-number: 127
+:receiver: *Manager
+:param-name 0: ctx
+:param-type 0: context.Context
+:return-type 0: *sql.Tx
+:return-type 1: error
+
+NewTx creates a new transaction after ensuring there is an existing
+connection.
+```
+
+```{go:method} ApplyMigration
+:file: manager.go
+:line-number: 137
+:receiver: *Manager
+:param-name 0: ctx
+:param-type 0: context.Context
+:param-name 1: migration
+:param-type 1: Migration
+:return-name 0: err
+:return-type 0: error
+
+ApplyMigration creates a transaction that runs the "Up" migration.
+```
+
+```{go:method} Up
+:file: manager.go
+:line-number: 195
+:receiver: *Manager
+:param-name 0: ctx
+:param-type 0: context.Context
+:param-name 1: opts
+:param-type 1: ...ApplyOption
+:return-type 0: error
+
+Up applies all migrations that have not yet been applied.
+```
+
+```{go:method} UpOne
+:file: manager.go
+:line-number: 229
+:receiver: *Manager
+:param-name 0: ctx
+:param-type 0: context.Context
+:param-name 1: opts
+:param-type 1: ...ApplyOption
+:return-type 0: error
+
+UpOne applies the **next** migration that has yet been applied, if any.
+```
+
+```{go:method} UpTo
+:file: manager.go
+:line-number: 251
+:receiver: *Manager
+:param-name 0: ctx
+:param-type 0: context.Context
+:param-name 1: opts
+:param-type 1: ...ApplyOption
+:return-type 0: error
+
+UpTo applies all migrations that have yet to be applied up to (and
+including) a revision, if any. This expects the `ApplyConfig` revision to
+be set in `opts`.
+```
+
+```{go:method} Latest
+:file: manager.go
+:line-number: 293
+:receiver: *Manager
+:param-name 0: ctx
+:param-type 0: context.Context
+:return-name 0: revision
+:return-type 0: string
+:return-name 1: createdAt
+:return-type 1: time.Time
+:return-name 2: err
+:return-type 2: error
+
+Latest determines the revision and timestamp of the most recently applied
+migration.
+
+NOTE: This assumes, but does not check, that the migrations metadata table
+exists.
+```
+
+```{go:method} GetVersion
+:file: manager.go
+:line-number: 359
+:receiver: *Manager
+:param-name 0: ctx
+:param-type 0: context.Context
+:param-name 0: opts
+:param-type 0: ...ApplyOption
+:return-type 0: *Migration
+:return-type 1: error
+
+GetVersion returns the migration that corresponds to the version that was
+most recently applied.
+```
+
+```{go:method} Verify
+:file: manager.go
+:line-number: 396
+:receiver: *Manager
+:param-name 0: ctx
+:param-type 0: context.Context
+:return-name 0: err
+:return-type 0: error
+
+Verify checks that the rows in the migrations metadata table match the
+sequence.
+```
+
+```{go:method} Version
+:file: manager.go
+:line-number: 479
+:receiver: *Manager
+:param-name 0: ctx
+:param-type 0: context.Context
+:param-name 1: opts
+:param-type 1: ...ApplyOption
+:return-type 0: error
+
+Version displays the revision of the most recent migration to be applied
+```
+
+```{go:method} IsApplied
+:file: manager.go
+:line-number: 500
+:receiver: *Manager
+:param-name 0: ctx
+:param-type 0: context.Context
+:param-name 1: tx
+:param-type 1: *sql.Tx
+:param-name 2: migration
+:param-type 2: Migration
+:return-type 0: bool
+:return-type 1: error
+
+IsApplied checks if a migration has already been applied.
+
+NOTE: This assumes, but does not check, that the migrations metadata table
+exists.
 ```
 
 <!-- Exported members from `manager_options.go` -->

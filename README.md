@@ -16,6 +16,7 @@
 ## Elements in Go Domain
 
 - Basic Types
+  - [ ] Literal (i.e. a `const` without a type)
   - [ ] `bool`
   - [ ] `string`
   - [ ] `int`
