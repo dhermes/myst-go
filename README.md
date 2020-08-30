@@ -44,7 +44,7 @@
   - [ ] Alias
   - [ ] Variadic Input
   - [ ] Named Returns
-  - [ ] Struct-embedding (`:embed-type 0:` and `:embed-location 0:`)
+  - [ ] Struct-embedding (`:embed-type 0:`)
 - Values
   - [ ] `const`
   - [ ] `var`
