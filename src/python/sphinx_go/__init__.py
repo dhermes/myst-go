@@ -146,9 +146,25 @@ class GoDomain(sphinx.domains.Domain):
             pkgname (str): The import name of the package.
             node_id (str): The ID of the document node.
         """
-        # TODO: This does not make sense because a package is composed of lots
+        # TODO: This ma not make sense because a package is composed of lots
         #       of files (i.e. a single `.docname` doesn't make sense).
+        #       Need to verify that `self.env.docname` is a Sphinx document not
+        #       a Go document.
         self.packages[pkgname] = (self.env.docname, node_id)
+
+    def clear_doc(self, docname):
+        """Remove all members defined in a Sphinx document.
+
+        Args:
+            docname (str): The name of a Sphinx document.
+        """
+        for fullname, (pkg_docname, _, _) in list(self.objects.items()):
+            if pkg_docname == docname:
+                del self.objects[fullname]
+
+        for pkgname, (pkg_docname, _) in list(self.packages.items()):
+            if pkg_docname == docname:
+                del self.packages[pkgname]
 
 
 def setup(app):
