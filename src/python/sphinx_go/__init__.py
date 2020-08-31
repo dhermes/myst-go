@@ -10,6 +10,11 @@ import sphinx.util.logging
 _LOGGER = sphinx.util.logging.getLogger(__name__)
 
 
+class GoNotImplemented:
+    # TODO
+    pass
+
+
 class GoCallable:
     # TODO
     pass
@@ -32,21 +37,50 @@ class GoDomain(sphinx.domains.Domain):
     label = "Go"
 
     object_types = {
-        "function": sphinx.domains.ObjType(
-            sphinx.locale._("function"), "func"
+        "alias-func": sphinx.domains.ObjType(
+            sphinx.locale._("alias-func"), "type"
         ),
-        "method": sphinx.domains.ObjType(sphinx.locale._("method"), "meth"),
-        "package": sphinx.domains.ObjType(sphinx.locale._("package"), "pkg"),
+        "const": sphinx.domains.ObjType(sphinx.locale._("constant"), "value"),
+        "constructor": sphinx.domains.ObjType(
+            sphinx.locale._("constructor"), "func"
+        ),
+        "field": sphinx.domains.ObjType(sphinx.locale._("field"), "field"),
+        # NOTE: `file` will not be rendered
+        "func": sphinx.domains.ObjType(sphinx.locale._("function"), "func"),
+        "interface": sphinx.domains.ObjType(
+            sphinx.locale._("interface"), "type"
+        ),
+        "interface-method": sphinx.domains.ObjType(
+            sphinx.locale._("interface-method"), "method"
+        ),
+        "method": sphinx.domains.ObjType(sphinx.locale._("method"), "method"),
+        "package": sphinx.domains.ObjType(
+            sphinx.locale._("package"), "package"
+        ),
+        "struct": sphinx.domains.ObjType(sphinx.locale._("struct"), "type"),
+        "var": sphinx.domains.ObjType(sphinx.locale._("variable"), "value"),
     }
     directives = {
-        "function": GoCallable,
+        "alias-func": GoNotImplemented,
+        "const": GoNotImplemented,
+        "constructor": GoNotImplemented,
+        "field": GoNotImplemented,
+        "file": GoNotImplemented,
+        "func": GoCallable,
+        "interface": GoNotImplemented,
+        "interface-method": GoCallable,
         "method": GoCallable,
         "package": GoPackage,
+        "struct": GoNotImplemented,
+        "var": GoNotImplemented,
     }
     roles = {
+        "field": GoXRefRole(),
         "func": GoXRefRole(fix_parens=True),
-        "meth": GoXRefRole(fix_parens=True),
-        "pkg": GoXRefRole(),
+        "method": GoXRefRole(fix_parens=True),
+        "package": GoXRefRole(),
+        "type": GoXRefRole(),
+        "value": GoXRefRole(),
     }
     initial_data = {
         "objects": {},  # fullname -> docname, node_id, objtype
