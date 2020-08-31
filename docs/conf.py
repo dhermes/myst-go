@@ -14,6 +14,10 @@
 # sys.path.insert(0, os.path.abspath('.'))
 import os
 import subprocess
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 
 import sphinx_rtd_theme
 
@@ -66,6 +70,7 @@ author = "Danny Hermes"
 # ones.
 extensions = [
     "myst_parser",
+    "sphinx_domain_wild",
 ]
 myst_config = {}
 # See:
