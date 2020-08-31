@@ -26,8 +26,41 @@ class GoPackage:
 
 
 class GoXRefRole(sphinx.roles.XRefRole):
-    # TODO
-    pass
+    def process_link(self, env, refnode, has_explicit_title, title, target):
+        """Process a cross reference, e.g. for relative references.
+
+        Args:
+            env (sphinx.environment.BuildEnvironment): The current build
+                environment.
+            refnode (docutils.nodes.Element): The node being referred to.
+            has_explicit_title (bool): Flag indicating if the reference has
+                an explicit title.
+            title (str): Title of the reference.
+            target (str): Target for the reference
+
+        Returns:
+            Tuple[str, str]: Pair of
+
+            * Title (for display purposes) of the cross referenced item
+            * Actual target (after processing)
+        """
+        refnode["go:interface"] = env.ref_context.get("go:interface")
+        refnode["go:struct"] = env.ref_context.get("go:struct")
+        refnode["go:package"] = env.ref_context.get("go:package")
+        if not has_explicit_title:
+            title = title.lstrip(".")
+            target = target.lstrip("~")
+            if title[:1] == "~":
+                title = title[1:]
+                dot = title.rfind(".")
+                if dot != -1:
+                    title = title[dot + 1 :]
+
+        if target[:1] == ".":
+            target = target[1:]
+            refnode["refspecific"] = True
+
+        return title, target
 
 
 class GoDomain(sphinx.domains.Domain):
